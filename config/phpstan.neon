@@ -1,0 +1,7 @@
+parameters:
+  paths:
+    - ../app
+  excludePaths:
+    - *Test.php
+    - *TestBase.php
+  level: 5

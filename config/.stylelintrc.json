@@ -1,0 +1,10 @@
+{
+  "extends": "./../web/core/.stylelintrc.json",
+  "ignoreFiles": [
+    "../assets/**/*",
+    "*/node_modules/**/*",
+    "../var/**/*",
+    "../vendor/**/*",
+    "../web/**/*"
+  ]
+}

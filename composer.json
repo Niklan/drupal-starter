@@ -1,0 +1,93 @@
+{
+    "name": "niklan/drupal-starter",
+    "description": "A project template for Drupal projects with a slightly different structure.",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/niklan/drupal-starter",
+    "support": {
+        "docs": "https://github.com/niklan/drupal-starter#readme"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "app/**/*"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "composer/installers": "^2.3",
+        "drupal/core-composer-scaffold": "^11",
+        "drupal/core-project-message": "^11",
+        "drupal/core-recommended": "^11",
+        "drush/drush": "^13"
+    },
+    "require-dev": {
+        "drupal/core-dev": "^11",
+        "chi-teck/drupal-coder-extension": "^2.0@beta"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-install-cmd": [
+            "ln -nfs ../var/files/public web/files"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true,
+            "tbachert/spi": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "drupal-scaffold": {
+            "gitignore": false,
+            "locations": {
+                "web-root": "web/",
+                "libraries-root": "web/libraries"
+            },
+            "file-mapping": {
+                "[project-root]/.editorconfig": false,
+                "[project-root]/.gitattributes": false,
+                "[project-root]/.local/settings.php": {
+                    "mode": "replace",
+                    "path": "assets/scaffold/settings.local.php",
+                    "overwrite": false
+                },
+                "[project-root]/var/files/private/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/public/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/temporary/.keep": "assets/scaffold/.keep",
+                "[project-root]/var/files/translation/.keep": "assets/scaffold/.keep",
+                "[web-root]/robots.txt": {
+                    "append": "assets/scaffold/robots-txt-additions.txt"
+                },
+                "[web-root]/sites/default/default.settings.php": "web/core/assets/scaffold/files/default.settings.php",
+                "[web-root]/sites/default/settings.php": "assets/scaffold/settings.php",
+                "[web-root]/sites/development.services.yml": "assets/scaffold/development.services.yml"
+            }
+        },
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "web/modules/custom/{$name}": ["type:drupal-custom-module"],
+            "web/profiles/custom/{$name}": ["type:drupal-custom-profile"],
+            "web/themes/custom/{$name}": ["type:drupal-custom-theme"],
+            "recipes/{$name}": ["type:drupal-recipe"]
+        }
+    }
+}

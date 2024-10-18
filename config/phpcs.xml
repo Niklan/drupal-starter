@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="Project">
+  <arg name="colors"/>
+  <arg name="extensions" value="php,module,inc,install,theme"/>
+  <file>../app</file>
+  <!-- Exclude fixtures. -->
+  <exclude-pattern>*/fixtures/*</exclude-pattern>
+  <exclude-pattern>*\.(css|js)</exclude-pattern>
+
+  <!-- Base ruleset. -->
+  <rule ref="DrupalExtended"/>
+</ruleset>

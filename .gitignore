@@ -1,0 +1,15 @@
+# Ignore the public directory because all project modules, themes, profiles,
+# libraries, and public files are managed by Composer and the Drupal Scaffold
+# Plugin.
+/web
+
+# Ignore third-party dependencies that are managed using Composer.
+/vendor
+
+# Ignore paths that contain content specific to users and environments.
+/.local
+/var
+
+# Ignore Node.js related files and directories.
+node_modules
+yarn-error.log
