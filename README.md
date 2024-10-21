@@ -18,7 +18,7 @@ make the project more secure because nothing will be accessible on the public
 web unless you explicitly make it so. The new structure will also make it easier
 to navigate through the project and configure the IDE.
 
-### .local/
+### local/
 
 This folder is used to store environment-specific settings. By default, it will
 create a file called 'settings.php' for local settings, which are related to the

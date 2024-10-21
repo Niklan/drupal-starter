@@ -7,7 +7,7 @@
 /vendor
 
 # Ignore paths that contain content specific to users and environments.
-/.local
+/local
 /var
 
 # Ignore Node.js related files and directories.
