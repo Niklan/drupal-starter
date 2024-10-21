@@ -16,4 +16,4 @@ $settings['database_cache_max_rows']['default'] = 100_000;
 
 $config['locale.settings']['translation']['path'] = '../var/files/translation';
 
-include \DRUPAL_ROOT . '../.local/settings.php';
+include \DRUPAL_ROOT . '/../local/settings.php';
