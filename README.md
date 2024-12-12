@@ -136,6 +136,69 @@ Most Drupal modules expect third-party libraries to be located under
 
 There are two ways to solve this problem. Choose whichever one you prefer.
 
+#### Using composer (recommended)
+
+This approach is similar to the one used for modules, themes, and profiles. The
+only difference is that you need to make some small changes to your
+`composer.json` file and define the library using that file.
+
+First, you need to allow composer to search for packages in the `./asset/vendor`
+directory. To do this, add a new repository to your root `composer.json` file:
+
+```json
+    "repositories": [
+        {
+            "type": "path",
+            "url": "app/**/*"
+        },
+        {
+            "type": "path",
+            "url": "assets/vendor/*"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+```
+
+Then, for instance, just add a `composer.json` file to the library folder:
+`./assets/vendor/photoswipe/composer.json`:
+
+```json
+{
+    "name": "myproject-asset/photoswipe",
+    "type": "drupal-library",
+    "version": "1.0.0-dev"
+}
+```
+
+Then just require it as any other package:
+
+```
+composer require myproject-asset/photoswipe:^1.0@dev
+````
+
+That's it! It will copy all the files to the `./web/libraries/photoswipe`
+folder.
+
+**Pros:**
+
+- Familiar approach with Composer in general.
+- Automatically installs all files (tip: store only necessary files, without 
+  tests, demos, etc.).
+- It uses symlinks, which updates files automatically, so you can change them
+  and test on the fly more easily.
+- Removes the directory (symlink) on dependency removal.
+- You can set it as a dependency for specific modules or themes, which makes it
+  much more clear who is requiring any asset in the project.
+
+**Cons:**
+- Requires preparing and maintaining the `composer.json` file for each asset.
+- Since it is a symlink to the whole directory, if you just copy-paste
+  everything from libraries, you can have some additional files available
+  publicly.
+
 #### Using `drupal:scaffold`
 
 1. Download and save library (`quicklink.umd.js`) at
@@ -171,51 +234,16 @@ library uses multiple files, for example:
 "[libraries-root]/photoswipe/photoswipe.json": "assets/vendor/photoswipe/photoswipe.json",
 ```
 
-#### Using composer
+**Pros:**
+- Only explicitly listed files will be scaffolded.
 
-This approach is similar to the one used for modules, themes, and profiles. The
-only difference is that you need to make some small changes to your
-`composer.json` file and define the library using that file.
-
-First, you need to allow composer to search for packages in the `./asset/vendor`
-directory. To do this, add a new repository to your root `composer.json` file:
-
-```json
-    "repositories": [
-        {
-            "type": "path",
-            "url": "app/**/*"
-        },
-        {
-            "type": "path",
-            "url": "assets/vendor/*"
-        },
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        }
-    ],
-```
-
-Then, for instance, just add a `composer.json` file to the library folder:
-`./assets/vendor/photoswipe/composer.json`:
-
-```json
-{
-    "name": "myproject/photoswipe-asset",
-    "type": "drupal-library",
-    "version": "1.0.0-dev"
-}
-```
-
-Then just require it as any other package:
-
-```
-composer require myproject/photoswipe-asset:^1.0@dev
-````
-
-That's it! It will copy all the files to the `./web/libraries/photoswipe`
-folder.
+**Cons:**
+- When removing a file from scaffolding, previously scaffolded files are not
+  automatically removed, which can lead to a buildup of useless assets.
+- If an asset consists of multiple files (like 10+), it can be tedious to
+  configure and maintain.
+- Dependencies cannot be managed properly because you cannot require such a
+  dependency for a module or theme.
 
 ### How to run tool X?
 
