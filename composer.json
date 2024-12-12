@@ -35,7 +35,7 @@
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
-            "ln -nfs ../var/files/public web/files"
+            "rm -rf web/files && ln -s ../var/files/public web/files"
         ]
     },
     "config": {
