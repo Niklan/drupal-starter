@@ -80,14 +80,15 @@ composer or stored in the `assets` or `var` folders.
 
 ## web/
 
-The `web/` directory is the public directory where Drupal and other public code
-is located. The idea behind this template is that if you want to make something
-public by placing it in the `web/` directory, you should do it explicitly.
+The `web/` directory serves as the public directory where Drupal and other
+public code are located. If you intend to make something public by placing it in
+the `web/` directory, you should do so explicitly.
 
-Custom modules, themes, and profiles are installed using Composer by creating a
-symbolic link. Custom libraries and other static assets are installed using the
-`drupal:scaffold` composer plugin. Shared directories such as `public://` are
-also linked to the `var/` directory.
+Custom modules, themes, profiles, and third-party libraries are installed using
+Composer by creating a symbolic link. Alternatively, you can utilize the
+`drupal:scaffold` Composer plugin (see the FAQ section for more information).
+
+Shared directories such as `public://` are linked to the `var/` directory.
 
 ## FAQ
 
@@ -138,31 +139,20 @@ There are two ways to solve this problem. Choose whichever one you prefer.
 
 #### Using composer (recommended)
 
+> [!NOTE]
+> Since this approach is recommended, it is already preconfigured in the composer.json file. If you decide not to use it, you can safely remove this repository:
+> 
+> ```json
+>         {
+>             "type": "path",
+>             "url": "assets/vendor/*"
+>         },
+> ```
+
 This approach is similar to the one used for modules, themes, and profiles. The
-only difference is that you need to make some small changes to your
-`composer.json` file and define the library using that file.
+only difference is that you need to define the library manually.
 
-First, you need to allow composer to search for packages in the `./asset/vendor`
-directory. To do this, add a new repository to your root `composer.json` file:
-
-```json
-    "repositories": [
-        {
-            "type": "path",
-            "url": "app/**/*"
-        },
-        {
-            "type": "path",
-            "url": "assets/vendor/*"
-        },
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
-        }
-    ],
-```
-
-Then, for instance, just add a `composer.json` file to the library folder:
+To do this, add a `composer.json` file to the library folder, for example:
 `./assets/vendor/photoswipe/composer.json`:
 
 ```json
@@ -173,31 +163,47 @@ Then, for instance, just add a `composer.json` file to the library folder:
 }
 ```
 
-Then just require it as any other package:
+> [!NOTE]
+> Composer will use the package name to create a folder. In the example above,
+> it is **photoswipe**. Since Drupal modules are likely to search for libraries
+> in a specific folder, the name of the library in the composer.json file is
+> crucial.
+> 
+> To avoid conflicts with other project packages, it is recommended to use your
+> project name with an "-asset" suffix for the third-party assets:
+> `[project-name]-suffix/[library-name]`. This helps in keeping the organization
+> clean and prevents naming conflicts within the project.
+
+Then, simply require it like any other package:
 
 ```
 composer require myproject-asset/photoswipe:^1.0@dev
-````
+```
 
-That's it! It will copy all the files to the `./web/libraries/photoswipe`
-folder.
+This will copy all the files to the `./web/libraries/photoswipe` folder.
 
 **Pros:**
 
-- Familiar approach with Composer in general.
-- Automatically installs all files (tip: store only necessary files, without 
+- **Familiar approach with Composer:** This method is familiar if you've worked
+  with Composer before.
+- **Automatic File Installation:** All necessary files are automatically
+  installed (it's a good practice to include only essential files and exclude
   tests, demos, etc.).
-- It uses symlinks, which updates files automatically, so you can change them
-  and test on the fly more easily.
-- Removes the directory (symlink) on dependency removal.
-- You can set it as a dependency for specific modules or themes, which makes it
-  much more clear who is requiring any asset in the project.
+- **Automatic File Updates:** Symlinks keep the files updated automatically,
+  allowing for easier on-the-fly changes and testing.
+- **Removal of Directory on Dependency Removal:** When a dependency is removed,
+  the directory (symlink) is also removed, keeping your project tidy.
+- **Clear Dependency Management:** You can set it as a dependency for specific
+  modules or themes, making it clearer who is requiring any asset in the
+  project. TIP: Don't forget to maintain asset version!
 
 **Cons:**
-- Requires preparing and maintaining the `composer.json` file for each asset.
-- Since it is a symlink to the whole directory, if you just copy-paste
-  everything from libraries, you can have some additional files available
-  publicly.
+
+- **Maintenance of `composer.json` file:** Requires preparing and maintaining
+  the `composer.json` file for each asset.
+- **Potential for Additional Files:** Since it's a symlink to the whole
+  directory, if you copy-paste everything from libraries, you might end up with
+  some additional files publicly accessible.
 
 #### Using `drupal:scaffold`
 
