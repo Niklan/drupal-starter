@@ -65,6 +65,7 @@
                     "path": "assets/scaffold/settings.local.php",
                     "overwrite": false
                 },
+                "[project-root]/recipes/README.txt": false,
                 "[project-root]/var/files/private/.keep": "assets/scaffold/.keep",
                 "[project-root]/var/files/public/.keep": "assets/scaffold/.keep",
                 "[project-root]/var/files/temporary/.keep": "assets/scaffold/.keep",
