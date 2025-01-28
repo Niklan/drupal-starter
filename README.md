@@ -139,16 +139,6 @@ There are two ways to solve this problem. Choose whichever one you prefer.
 
 #### Using composer (recommended)
 
-> [!NOTE]
-> Since this approach is recommended, it is already preconfigured in the composer.json file. If you decide not to use it, you can safely remove this repository:
-> 
-> ```json
->         {
->             "type": "path",
->             "url": "assets/vendor/*"
->         },
-> ```
-
 This approach is similar to the one used for modules, themes, and profiles. The
 only difference is that you need to define the library manually.
 
@@ -204,6 +194,18 @@ This will copy all the files to the `./web/libraries/photoswipe` folder.
 - **Potential for Additional Files:** Since it's a symlink to the whole
   directory, if you copy-paste everything from libraries, you might end up with
   some additional files publicly accessible.
+
+> [!TIP]
+> Since this approach is recommended, it is already preconfigured in the
+> `composer.json` file. If you decide not to use it, you can safely remove this
+> repository:
+>
+> ```json
+>         {
+>             "type": "path",
+>             "url": "assets/vendor/*"
+>         },
+> ```
 
 #### Using `drupal:scaffold`
 
