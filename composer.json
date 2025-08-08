@@ -24,7 +24,6 @@
     "require": {
         "composer/installers": "^2.3",
         "drupal/core-composer-scaffold": "^11",
-        "drupal/core-project-message": "^11",
         "drupal/core-recommended": "^11",
         "drush/drush": "^13"
     },
@@ -46,7 +45,6 @@
         "allow-plugins": {
             "composer/installers": true,
             "drupal/core-composer-scaffold": true,
-            "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "php-http/discovery": true,
