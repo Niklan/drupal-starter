@@ -13,6 +13,10 @@
             "url": "app/**/*"
         },
         {
+            "type": "path",
+            "url": "assets/vendor/*"
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
